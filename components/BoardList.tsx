@@ -24,7 +24,7 @@ export default function BoardList() {
   }
 
   return (
-    <div className="min-h-screen bg-nimbus-bg">
+    <div className="board-list-page min-h-[100dvh] bg-nimbus-bg">
       {/* Header */}
       <header className="border-b border-nimbus-border-subtle">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex items-center justify-between">
@@ -38,7 +38,7 @@ export default function BoardList() {
           </div>
           <button
             onClick={handleCreate}
-            className="px-4 py-2 bg-nimbus-gold text-nimbus-bg rounded-lg text-sm font-medium hover:brightness-110 transition-all"
+            className="px-4 py-2 bg-nimbus-gold text-nimbus-bg rounded-lg text-sm font-medium hover:brightness-110 transition-all active:scale-95"
           >
             + New Board
           </button>
@@ -59,7 +59,7 @@ export default function BoardList() {
             <p className="text-sm text-nimbus-text-muted mb-6">Create your first board to start capturing ideas</p>
             <button
               onClick={handleCreate}
-              className="px-5 py-2.5 bg-nimbus-gold text-nimbus-bg rounded-lg text-sm font-medium hover:brightness-110 transition-all"
+              className="px-5 py-2.5 bg-nimbus-gold text-nimbus-bg rounded-lg text-sm font-medium hover:brightness-110 transition-all active:scale-95"
             >
               Create Board
             </button>
@@ -73,10 +73,10 @@ export default function BoardList() {
         )}
       </main>
 
-      {/* Mobile FAB */}
+      {/* Mobile/Tablet FAB */}
       <button
         onClick={handleCreate}
-        className="fixed bottom-6 right-6 sm:hidden w-14 h-14 bg-nimbus-gold rounded-full shadow-lg shadow-nimbus-gold/20 flex items-center justify-center text-nimbus-bg text-2xl font-light hover:scale-105 transition-transform z-50"
+        className="fixed bottom-6 right-6 lg:hidden w-14 h-14 bg-nimbus-gold rounded-full shadow-lg shadow-nimbus-gold/20 flex items-center justify-center text-nimbus-bg text-2xl font-light hover:scale-105 active:scale-95 transition-transform z-50"
       >
         +
       </button>

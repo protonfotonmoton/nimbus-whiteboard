@@ -28,8 +28,8 @@ export function getUIOptions(device: DeviceClass) {
 
 export function getExcalidrawProps(device: DeviceClass) {
   return {
-    gridModeEnabled: device !== "phone",
-    zenModeEnabled: device === "phone",
+    gridModeEnabled: device === "desktop",
+    zenModeEnabled: false,
     theme: "dark" as const,
     viewModeEnabled: false,
   };

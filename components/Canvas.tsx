@@ -58,7 +58,7 @@ export default function Canvas({ boardId, initialData }: CanvasProps) {
   const excalidrawProps = getExcalidrawProps(device);
 
   return (
-    <div className="relative w-full h-full">
+    <div className="excalidraw-container absolute inset-0">
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <Excalidraw
         initialData={{

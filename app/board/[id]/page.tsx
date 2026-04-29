@@ -32,7 +32,7 @@ export default function BoardPage() {
 
   if (loading || !board) {
     return (
-      <div className="flex items-center justify-center h-screen bg-nimbus-bg">
+      <div className="flex items-center justify-center h-[100dvh] bg-nimbus-bg">
         <div className="w-8 h-8 border-2 border-nimbus-gold border-t-transparent rounded-full animate-spin" />
       </div>
     );
@@ -41,15 +41,15 @@ export default function BoardPage() {
   const boardData = board.excalidraw_data as { elements?: ExcalidrawElement[]; appState?: Record<string, unknown> };
 
   return (
-    <div className="flex flex-col h-screen bg-nimbus-bg">
+    <div className="canvas-page flex flex-col bg-nimbus-bg">
       <Nav
         boardName={board.name}
         boardId={board.id}
         onToggleMermaid={() => setShowMermaid(!showMermaid)}
         showMermaid={showMermaid}
       />
-      <div className="flex flex-1 overflow-hidden">
-        <div className="flex-1 relative">
+      <div className="flex flex-1 min-h-0">
+        <div className="flex-1 relative min-h-0">
           <Canvas
             boardId={board.id}
             initialData={{

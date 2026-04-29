@@ -18,13 +18,47 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+  height: 100dvh;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Board list page needs scrolling, canvas page doesn't */
+.board-list-page {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Canvas page: lock viewport, let Excalidraw handle touch */
+.canvas-page {
   overflow: hidden;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+}
+
+/* Excalidraw touch handling — critical for iPad */
+.excalidraw-container {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* Excalidraw dark theme overrides */
@@ -44,6 +78,14 @@ body {
   background: #161619 !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 8px !important;
+}
+
+/* Prevent iOS Safari rubber-band bouncing on canvas */
+.excalidraw-container .excalidraw {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 /* Scrollbar */
