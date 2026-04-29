@@ -8,10 +8,17 @@ import { getUIOptions, getExcalidrawProps } from "@/lib/excalidraw/config";
 import { NIMBUS_EXCALIDRAW_THEME } from "@/lib/excalidraw/theme";
 import type { ExcalidrawElement, AppState, BinaryFiles } from "@/lib/types";
 
-const Excalidraw = dynamic(
+const ExcalidrawWrapper = dynamic(
   async () => {
     const mod = await import("@excalidraw/excalidraw");
-    return mod.Excalidraw;
+    const { Excalidraw } = mod;
+
+    // Return a wrapper that disables the welcome screen
+    function ExcalidrawNoWelcome(props: Record<string, unknown>) {
+      return <Excalidraw {...props} />;
+    }
+    ExcalidrawNoWelcome.displayName = "ExcalidrawNoWelcome";
+    return ExcalidrawNoWelcome;
   },
   { ssr: false, loading: () => <CanvasLoader /> }
 );
@@ -59,18 +66,15 @@ export default function Canvas({ boardId, initialData }: CanvasProps) {
 
   return (
     <div className="excalidraw-container absolute inset-0">
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <Excalidraw
+      <ExcalidrawWrapper
         initialData={{
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          elements: (initialData?.elements as any[]) || [],
+          elements: (initialData?.elements as unknown[]) || [],
           appState: {
             ...NIMBUS_EXCALIDRAW_THEME,
             ...(initialData?.appState || {}),
           },
         }}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onChange={handleChange as any}
+        onChange={handleChange}
         UIOptions={uiOptions}
         {...excalidrawProps}
       />

@@ -32,7 +32,7 @@ export default function BoardPage() {
 
   if (loading || !board) {
     return (
-      <div className="flex items-center justify-center h-[100dvh] bg-nimbus-bg">
+      <div className="flex items-center justify-center w-screen h-[100dvh] bg-nimbus-bg">
         <div className="w-8 h-8 border-2 border-nimbus-gold border-t-transparent rounded-full animate-spin" />
       </div>
     );
@@ -48,8 +48,8 @@ export default function BoardPage() {
         onToggleMermaid={() => setShowMermaid(!showMermaid)}
         showMermaid={showMermaid}
       />
-      <div className="flex flex-1 min-h-0">
-        <div className="flex-1 relative min-h-0">
+      <div className="flex-1 flex min-h-0 min-w-0 relative">
+        <div className="flex-1 relative min-h-0 min-w-0">
           <Canvas
             boardId={board.id}
             initialData={{

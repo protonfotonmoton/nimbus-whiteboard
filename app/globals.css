@@ -42,13 +42,12 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Canvas page: lock viewport, let Excalidraw handle touch */
+/* Canvas page: fill viewport, let Excalidraw handle touch */
 .canvas-page {
   overflow: hidden;
-  position: fixed;
-  inset: 0;
-  width: 100%;
+  width: 100vw;
   height: 100dvh;
+  height: -webkit-fill-available;
 }
 
 /* Excalidraw touch handling — critical for iPad */
@@ -80,12 +79,30 @@ body {
   border-radius: 8px !important;
 }
 
-/* Prevent iOS Safari rubber-band bouncing on canvas */
+/* Ensure Excalidraw fills its container properly on all orientations */
 .excalidraw-container .excalidraw {
   position: absolute !important;
-  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
   width: 100% !important;
   height: 100% !important;
+}
+
+/* Hide Excalidraw's welcome screen / helper overlay on touch devices */
+@media (pointer: coarse) {
+  .excalidraw .welcome-screen-center,
+  .excalidraw .WelcomeScreen,
+  .excalidraw [class*="welcome"],
+  .excalidraw [class*="Welcome"] {
+    display: none !important;
+  }
+}
+
+/* Prevent any overflow on the canvas wrapper */
+.excalidraw-container {
+  overflow: hidden !important;
 }
 
 /* Scrollbar */
