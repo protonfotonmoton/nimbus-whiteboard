@@ -5,20 +5,13 @@ import { useCallback, useState } from "react";
 import { useDevice } from "@/hooks/useDevice";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { getUIOptions, getExcalidrawProps } from "@/lib/excalidraw/config";
-import { NIMBUS_EXCALIDRAW_THEME } from "@/lib/excalidraw/theme";
+import { NIMBUS_EXCALIDRAW_THEME, SEED_ELEMENT } from "@/lib/excalidraw/theme";
 import type { ExcalidrawElement, AppState, BinaryFiles } from "@/lib/types";
 
 const ExcalidrawWrapper = dynamic(
   async () => {
     const mod = await import("@excalidraw/excalidraw");
-    const { Excalidraw } = mod;
-
-    // Return a wrapper that disables the welcome screen
-    function ExcalidrawNoWelcome(props: Record<string, unknown>) {
-      return <Excalidraw {...props} />;
-    }
-    ExcalidrawNoWelcome.displayName = "ExcalidrawNoWelcome";
-    return ExcalidrawNoWelcome;
+    return mod.Excalidraw;
   },
   { ssr: false, loading: () => <CanvasLoader /> }
 );
@@ -64,17 +57,26 @@ export default function Canvas({ boardId, initialData }: CanvasProps) {
   const uiOptions = getUIOptions(device);
   const excalidrawProps = getExcalidrawProps(device);
 
+  // Excalidraw renders a massive welcome screen when elements is empty.
+  // Seed with an invisible off-screen element to prevent it.
+  const incomingElements = initialData?.elements;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const elements: any[] = (incomingElements && incomingElements.length > 0)
+    ? Array.from(incomingElements)
+    : [SEED_ELEMENT];
+
   return (
     <div className="excalidraw-container absolute inset-0">
       <ExcalidrawWrapper
         initialData={{
-          elements: (initialData?.elements as unknown[]) || [],
+          elements,
           appState: {
             ...NIMBUS_EXCALIDRAW_THEME,
             ...(initialData?.appState || {}),
           },
         }}
-        onChange={handleChange}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onChange={handleChange as any}
         UIOptions={uiOptions}
         {...excalidrawProps}
       />

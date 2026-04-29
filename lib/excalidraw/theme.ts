@@ -3,6 +3,45 @@ export const NIMBUS_EXCALIDRAW_THEME = {
   showWelcomeScreen: false,
 } as const;
 
+// Seed element — Excalidraw shows a massive welcome screen overlay when
+// the elements array is empty. This invisible seed prevents that entirely.
+export const SEED_ELEMENT = {
+  id: "nimbus_seed_0",
+  type: "text",
+  x: -9999,
+  y: -9999,
+  width: 1,
+  height: 1,
+  text: " ",
+  fontSize: 1,
+  fontFamily: 1,
+  textAlign: "left",
+  verticalAlign: "top",
+  strokeColor: "transparent",
+  backgroundColor: "transparent",
+  fillStyle: "solid",
+  strokeWidth: 0,
+  roughness: 0,
+  opacity: 0,
+  angle: 0,
+  groupIds: [],
+  frameId: null,
+  index: "a0",
+  roundness: null,
+  boundElements: null,
+  updated: Date.now(),
+  link: null,
+  locked: false,
+  seed: 1,
+  version: 1,
+  versionNonce: 1,
+  isDeleted: false,
+  containerId: null,
+  originalText: " ",
+  autoResize: true,
+  lineHeight: 1.25,
+} as const;
+
 export const NIMBUS_COLORS = {
   bg: "#0a0a0a",
   surface: "#111114",
