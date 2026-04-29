@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Canvas from "@/components/Canvas";
+import TouchCanvas from "@/components/TouchCanvas";
 import Nav from "@/components/Nav";
 import MermaidPreview from "@/components/MermaidPreview";
 import { getBoard, type Board } from "@/lib/boards";
@@ -17,8 +18,15 @@ export default function BoardPage() {
   const [loading, setLoading] = useState(true);
   const [showMermaid, setShowMermaid] = useState(false);
   const [elements, setElements] = useState<readonly ExcalidrawElement[]>([]);
+  const [isTouch, setIsTouch] = useState(false);
 
   const boardId = params.id as string;
+
+  useEffect(() => {
+    // Detect touch device — not just screen size but actual touch capability
+    const touch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    setIsTouch(touch);
+  }, []);
 
   useEffect(() => {
     const b = getBoard(boardId);
@@ -39,6 +47,7 @@ export default function BoardPage() {
   }
 
   const boardData = board.excalidraw_data as { elements?: ExcalidrawElement[]; appState?: Record<string, unknown> };
+  const useExcalidraw = device === "desktop" && !isTouch;
 
   return (
     <div className="canvas-page flex flex-col bg-nimbus-bg">
@@ -50,14 +59,18 @@ export default function BoardPage() {
       />
       <div className="flex-1 flex min-h-0 min-w-0 relative">
         <div className="flex-1 relative min-h-0 min-w-0">
-          <Canvas
-            boardId={board.id}
-            initialData={{
-              elements: boardData?.elements,
-              appState: boardData?.appState,
-            }}
-            onExport={setElements}
-          />
+          {useExcalidraw ? (
+            <Canvas
+              boardId={board.id}
+              initialData={{
+                elements: boardData?.elements,
+                appState: boardData?.appState,
+              }}
+              onExport={setElements}
+            />
+          ) : (
+            <TouchCanvas />
+          )}
         </div>
         {device === "desktop" && showMermaid && (
           <MermaidPreview elements={elements} />
