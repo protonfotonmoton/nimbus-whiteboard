@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #f7f8f8;
+  --nimbus-gold: #c9a84c;
+  --nimbus-cyan: #00d4ff;
+  --nimbus-surface: #111114;
+  --nimbus-card: #161619;
+  --nimbus-elevated: #1c1c20;
+  --nimbus-border: rgba(255, 255, 255, 0.08);
+  --nimbus-border-subtle: rgba(255, 255, 255, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* Excalidraw dark theme overrides */
+.excalidraw {
+  --color-primary: #c9a84c !important;
+  --color-primary-darker: #a6832f !important;
+  --color-primary-darkest: #7d6423 !important;
+  --color-primary-light: #e8d5a0 !important;
+  --island-bg-color: #161619 !important;
+  --default-bg-color: #0a0a0a !important;
+  --text-primary-color: #f7f8f8 !important;
+  --icon-fill-color: #c9a84c !important;
+  --button-hover-bg: #1c1c20 !important;
+}
+
+.excalidraw .Island {
+  background: #161619 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Mermaid dark theme */
+.mermaid-preview svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.mermaid-preview .node rect,
+.mermaid-preview .node circle,
+.mermaid-preview .node polygon {
+  fill: #161619 !important;
+  stroke: #c9a84c !important;
+}
+
+.mermaid-preview .edgePath .path {
+  stroke: #00d4ff !important;
+}
+
+.mermaid-preview span {
+  color: #f7f8f8 !important;
+}
