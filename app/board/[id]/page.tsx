@@ -18,13 +18,18 @@ export default function BoardPage() {
   const [loading, setLoading] = useState(true);
   const [showMermaid, setShowMermaid] = useState(false);
   const [elements, setElements] = useState<readonly ExcalidrawElement[]>([]);
-  const [isTouch, setIsTouch] = useState(false);
+  // tri-state: null = unknown (block rendering either canvas), true/false = decided
+  // critical: prevents Excalidraw's lazy chunk from starting to download on tablets
+  const [isTouch, setIsTouch] = useState<boolean | null>(null);
 
   const boardId = params.id as string;
 
   useEffect(() => {
     // Detect touch device — not just screen size but actual touch capability
-    const touch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const touch =
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia("(pointer: coarse)").matches;
     setIsTouch(touch);
   }, []);
 
@@ -38,7 +43,10 @@ export default function BoardPage() {
     setLoading(false);
   }, [boardId, router]);
 
-  if (loading || !board) {
+  // Wait until BOTH the board is loaded AND we know whether we're on touch.
+  // Without the isTouch===null gate, Canvas would mount briefly on the first
+  // render and start fetching the ~1MB Excalidraw chunk on tablets.
+  if (loading || !board || isTouch === null) {
     return (
       <div className="flex items-center justify-center w-screen h-[100dvh] bg-nimbus-bg">
         <div className="w-8 h-8 border-2 border-nimbus-gold border-t-transparent rounded-full animate-spin" />
@@ -47,7 +55,7 @@ export default function BoardPage() {
   }
 
   const boardData = board.excalidraw_data as { elements?: ExcalidrawElement[]; appState?: Record<string, unknown> };
-  const useExcalidraw = device === "desktop" && !isTouch;
+  const useExcalidraw = device === "desktop" && isTouch === false;
 
   return (
     <div className="canvas-page flex flex-col bg-nimbus-bg">

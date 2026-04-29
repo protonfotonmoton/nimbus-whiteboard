@@ -70,11 +70,12 @@ export default function TouchCanvas() {
       redraw();
     }
     resize();
+    const onOrient = () => setTimeout(resize, 100);
     window.addEventListener("resize", resize);
-    window.addEventListener("orientationchange", () => setTimeout(resize, 100));
+    window.addEventListener("orientationchange", onOrient);
     return () => {
       window.removeEventListener("resize", resize);
-      window.removeEventListener("orientationchange", () => {});
+      window.removeEventListener("orientationchange", onOrient);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
