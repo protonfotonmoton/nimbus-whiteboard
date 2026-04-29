@@ -1,5 +1,6 @@
 export const NIMBUS_EXCALIDRAW_THEME = {
   viewBackgroundColor: "#0a0a0a",
+  showWelcomeScreen: false,
 } as const;
 
 export const NIMBUS_COLORS = {
