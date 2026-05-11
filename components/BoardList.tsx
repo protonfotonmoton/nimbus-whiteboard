@@ -38,7 +38,7 @@ export default function BoardList() {
           </div>
           <button
             onClick={handleCreate}
-            className="px-4 py-2 bg-nimbus-gold text-nimbus-bg rounded-lg text-sm font-medium hover:brightness-110 transition-all active:scale-95"
+            className="px-4 py-2 bg-nimbus-orange text-nimbus-bg rounded-lg text-sm font-medium hover:brightness-110 transition-all active:scale-95"
           >
             + New Board
           </button>
@@ -50,7 +50,7 @@ export default function BoardList() {
         {boards.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
             <div className="w-16 h-16 rounded-2xl bg-nimbus-card border border-nimbus-border flex items-center justify-center mb-4">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-nimbus-gold">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-nimbus-orange">
                 <rect x="3" y="3" width="18" height="18" rx="2" />
                 <path d="M3 9h18M9 3v18" />
               </svg>
@@ -59,7 +59,7 @@ export default function BoardList() {
             <p className="text-sm text-nimbus-text-muted mb-6">Create your first board to start capturing ideas</p>
             <button
               onClick={handleCreate}
-              className="px-5 py-2.5 bg-nimbus-gold text-nimbus-bg rounded-lg text-sm font-medium hover:brightness-110 transition-all active:scale-95"
+              className="px-5 py-2.5 bg-nimbus-orange text-nimbus-bg rounded-lg text-sm font-medium hover:brightness-110 transition-all active:scale-95"
             >
               Create Board
             </button>
@@ -76,7 +76,7 @@ export default function BoardList() {
       {/* Mobile/Tablet FAB */}
       <button
         onClick={handleCreate}
-        className="fixed bottom-6 right-6 lg:hidden w-14 h-14 bg-nimbus-gold rounded-full shadow-lg shadow-nimbus-gold/20 flex items-center justify-center text-nimbus-bg text-2xl font-light hover:scale-105 active:scale-95 transition-transform z-50"
+        className="fixed bottom-6 right-6 lg:hidden w-14 h-14 bg-nimbus-orange rounded-full shadow-lg shadow-nimbus-orange/20 flex items-center justify-center text-nimbus-bg text-2xl font-light hover:scale-105 active:scale-95 transition-transform z-50"
       >
         +
       </button>

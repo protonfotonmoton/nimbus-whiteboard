@@ -314,7 +314,7 @@ export default function TouchCanvas() {
             onClick={() => { setTool(t.id); setShowColors(false); }}
             className={`w-11 h-11 flex items-center justify-center rounded-xl text-base transition-all ${
               tool === t.id
-                ? "bg-nimbus-gold/20 text-nimbus-gold ring-1 ring-nimbus-gold/40"
+                ? "bg-nimbus-orange/20 text-nimbus-orange ring-1 ring-nimbus-orange/40"
                 : "text-nimbus-text-muted active:bg-nimbus-elevated"
             }`}
           >
@@ -366,7 +366,7 @@ export default function TouchCanvas() {
             <button
               key={c}
               onClick={() => { setColor(c); setShowColors(false); }}
-              className={`w-9 h-9 rounded-full transition-transform ${color === c ? "ring-2 ring-nimbus-gold scale-110" : "active:scale-90"}`}
+              className={`w-9 h-9 rounded-full transition-transform ${color === c ? "ring-2 ring-nimbus-orange scale-110" : "active:scale-90"}`}
               style={{ backgroundColor: c }}
             />
           ))}
@@ -383,12 +383,12 @@ export default function TouchCanvas() {
               onChange={(e) => setTextValue(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && addTextNote()}
               placeholder="Type your note..."
-              className="w-full bg-nimbus-bg border border-nimbus-border rounded-lg px-3 py-2.5 text-nimbus-text text-base outline-none focus:border-nimbus-gold"
+              className="w-full bg-nimbus-bg border border-nimbus-border rounded-lg px-3 py-2.5 text-nimbus-text text-base outline-none focus:border-nimbus-orange"
             />
             <div className="flex gap-2 mt-3">
               <button
                 onClick={addTextNote}
-                className="flex-1 py-2 bg-nimbus-gold text-nimbus-bg rounded-lg text-sm font-medium active:scale-95"
+                className="flex-1 py-2 bg-nimbus-orange text-nimbus-bg rounded-lg text-sm font-medium active:scale-95"
               >
                 Add
               </button>
