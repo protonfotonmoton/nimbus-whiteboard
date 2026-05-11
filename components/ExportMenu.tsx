@@ -59,7 +59,7 @@ export default function ExportMenu({ boardId, onClose }: ExportMenuProps) {
       className="absolute right-0 top-full mt-1 w-48 bg-nimbus-card border border-nimbus-border rounded-xl shadow-2xl shadow-black/40 z-50 overflow-hidden"
     >
       <button onClick={exportJSON} className="w-full px-3 py-2.5 text-left text-sm text-nimbus-text-secondary hover:bg-nimbus-elevated transition-colors flex items-center gap-2">
-        <span className="text-nimbus-gold">{ "{}" }</span> JSON
+        <span className="text-nimbus-orange">{ "{}" }</span> JSON
       </button>
       <button onClick={exportMermaid} className="w-full px-3 py-2.5 text-left text-sm text-nimbus-text-secondary hover:bg-nimbus-elevated transition-colors flex items-center gap-2">
         <span className="text-nimbus-cyan">&#9670;</span> Mermaid

@@ -11,9 +11,16 @@ interface NavProps {
   boardId: string;
   onToggleMermaid?: () => void;
   showMermaid?: boolean;
+  hideLegacyExport?: boolean;
 }
 
-export default function Nav({ boardName, boardId, onToggleMermaid, showMermaid }: NavProps) {
+export default function Nav({
+  boardName,
+  boardId,
+  onToggleMermaid,
+  showMermaid,
+  hideLegacyExport,
+}: NavProps) {
   const router = useRouter();
   const device = useDevice();
   const [name, setName] = useState(boardName);
@@ -48,12 +55,12 @@ export default function Nav({ boardName, boardId, onToggleMermaid, showMermaid }
             onChange={(e) => setName(e.target.value)}
             onBlur={handleNameSave}
             onKeyDown={(e) => e.key === "Enter" && handleNameSave()}
-            className="bg-transparent border border-nimbus-border rounded-md px-2 py-0.5 text-sm font-medium text-nimbus-text outline-none focus:border-nimbus-gold"
+            className="bg-transparent border border-nimbus-border rounded-md px-2 py-0.5 text-sm font-medium text-nimbus-text outline-none focus:border-nimbus-orange"
           />
         ) : (
           <button
             onClick={() => setEditing(true)}
-            className="text-sm font-medium text-nimbus-text hover:text-nimbus-gold transition-colors"
+            className="text-sm font-medium text-nimbus-text hover:text-nimbus-orange transition-colors"
           >
             {name}
           </button>
@@ -62,7 +69,7 @@ export default function Nav({ boardName, boardId, onToggleMermaid, showMermaid }
 
       {/* Right: Actions */}
       <div className="flex items-center gap-2">
-        {device === "desktop" && (
+        {device === "desktop" && onToggleMermaid && (
           <button
             onClick={onToggleMermaid}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
@@ -75,17 +82,19 @@ export default function Nav({ boardName, boardId, onToggleMermaid, showMermaid }
           </button>
         )}
 
-        <div className="relative">
-          <button
-            onClick={() => setShowExport(!showExport)}
-            className="px-3 py-1.5 rounded-lg text-xs font-medium text-nimbus-text-muted hover:bg-nimbus-elevated transition-colors"
-          >
-            Export
-          </button>
-          {showExport && (
-            <ExportMenu boardId={boardId} onClose={() => setShowExport(false)} />
-          )}
-        </div>
+        {!hideLegacyExport && (
+          <div className="relative">
+            <button
+              onClick={() => setShowExport(!showExport)}
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-nimbus-text-muted hover:bg-nimbus-elevated transition-colors"
+            >
+              Export
+            </button>
+            {showExport && (
+              <ExportMenu boardId={boardId} onClose={() => setShowExport(false)} />
+            )}
+          </div>
+        )}
       </div>
     </nav>
   );

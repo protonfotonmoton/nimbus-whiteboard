@@ -20,7 +20,7 @@ function CanvasLoader() {
   return (
     <div className="flex items-center justify-center h-full w-full bg-nimbus-bg">
       <div className="flex flex-col items-center gap-3">
-        <div className="w-8 h-8 border-2 border-nimbus-gold border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-nimbus-orange border-t-transparent rounded-full animate-spin" />
         <span className="text-nimbus-text-muted text-sm">Loading canvas...</span>
       </div>
     </div>
@@ -84,7 +84,7 @@ export default function Canvas({ boardId, initialData }: CanvasProps) {
       {/* Status bar */}
       <div className="absolute bottom-3 left-3 flex items-center gap-3 text-xs text-nimbus-text-muted pointer-events-none z-10">
         <span>{elementCount} elements</span>
-        {saving && <span className="text-nimbus-gold">Saving...</span>}
+        {saving && <span className="text-nimbus-orange">Saving...</span>}
         {!saving && lastSaved && (
           <span>
             Saved {lastSaved.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}

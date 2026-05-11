@@ -5,7 +5,10 @@
 :root {
   --background: #0a0a0a;
   --foreground: #f7f8f8;
-  --nimbus-gold: #c9a84c;
+  --nimbus-orange: #ff7a00;
+  --nimbus-orange-dim: #b35500;
+  --nimbus-orange-bright: #ffa040;
+  --nimbus-gold: #ff7a00; /* legacy alias → orange · do not use in new code */
   --nimbus-cyan: #00d4ff;
   --nimbus-surface: #111114;
   --nimbus-card: #161619;
@@ -61,16 +64,259 @@ body {
   user-select: none;
 }
 
+/* tldraw-first Nimbus canvas */
+.nimbus-tldraw-root {
+  background: #0a0a0a;
+}
+
+.nimbus-tldraw-root .tl-container {
+  --color-background: #0a0a0a;
+  --color-panel: #161619;
+  --color-low: rgba(255, 255, 255, 0.08);
+  --color-selected: #ff7a00;
+  --color-accent: #00d4ff;
+  font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
+}
+
+.nimbus-ai-panel {
+  position: absolute;
+  top: 72px;
+  right: 208px;
+  z-index: 10;
+  width: min(300px, calc(100vw - 24px));
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(22, 22, 25, 0.9);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(16px);
+}
+
+.nimbus-ai-panel__title {
+  margin-bottom: 8px;
+  color: #f7f8f8;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.nimbus-ai-panel__prompt {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.nimbus-ai-panel__prompt-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(0, 212, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(0, 212, 255, 0.06);
+  color: #f7f8f8;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nimbus-ai-panel__prompt-toggle:hover {
+  border-color: rgba(0, 212, 255, 0.35);
+  background: rgba(0, 212, 255, 0.1);
+}
+
+.nimbus-ai-panel__prompt-chip {
+  margin-left: auto;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(201, 168, 76, 0.16);
+  color: #d7c27a;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.nimbus-ai-panel__prompt-arrow {
+  transition: transform 160ms ease;
+}
+
+.nimbus-ai-panel__prompt-toggle[aria-expanded="true"] .nimbus-ai-panel__prompt-arrow {
+  transform: rotate(90deg);
+}
+
+.nimbus-ai-panel__prompt textarea {
+  width: 100%;
+  min-height: 72px;
+  padding: 8px;
+  resize: vertical;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.28);
+  color: #f7f8f8;
+  font: 12px/1.4 var(--font-geist-sans), Inter, system-ui, sans-serif;
+}
+
+.nimbus-ai-panel__prompt textarea::placeholder {
+  color: #737985;
+}
+
+.nimbus-ai-panel__prompt button {
+  min-height: 34px;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 8px;
+  background: rgba(201, 168, 76, 0.12);
+  color: #f7f8f8;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nimbus-ai-panel__prompt button:hover {
+  background: rgba(201, 168, 76, 0.2);
+}
+
+.nimbus-ai-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.nimbus-ai-panel__grid button {
+  min-height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #d0d6e0;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.nimbus-ai-panel__grid button:hover {
+  border-color: rgba(201, 168, 76, 0.35);
+  color: #f7f8f8;
+  background: rgba(201, 168, 76, 0.08);
+}
+
+.nimbus-ai-panel__status {
+  margin-top: 8px;
+  min-height: 16px;
+  color: #8a8f98;
+  font-size: 11px;
+}
+
+.nimbus-ai-panel__status--success {
+  color: #27a644;
+}
+
+.nimbus-ai-panel__status--error {
+  color: #ef4444;
+}
+
+.nimbus-ai-panel__summary {
+  width: 100%;
+  min-height: 128px;
+  margin-top: 8px;
+  padding: 8px;
+  resize: vertical;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: #0a0a0a;
+  color: #d0d6e0;
+  font: 11px/1.45 var(--font-geist-mono), ui-monospace, monospace;
+}
+
+.nimbus-ai-panel__json {
+  width: 100%;
+  min-height: 118px;
+  max-height: 220px;
+  margin-top: 8px;
+  padding: 8px;
+  resize: vertical;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.38);
+  color: #d0d6e0;
+  font: 10px/1.45 var(--font-geist-mono), ui-monospace, monospace;
+}
+
+.nimbus-ai-panel__preview {
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid rgba(0, 212, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(0, 212, 255, 0.06);
+}
+
+.nimbus-ai-panel__preview-title {
+  color: #f7f8f8;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.nimbus-ai-panel__preview-copy {
+  margin-top: 4px;
+  color: #aeb6c2;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.nimbus-ai-panel__preview-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.nimbus-ai-panel__preview-actions button {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #d0d6e0;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.nimbus-ai-panel__preview-actions button:hover {
+  border-color: rgba(0, 212, 255, 0.35);
+  color: #f7f8f8;
+}
+
+@media (max-width: 720px) {
+  .nimbus-ai-panel {
+    top: auto;
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+    width: auto;
+  }
+
+  .nimbus-ai-panel__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .nimbus-ai-panel__grid button {
+    min-height: 38px;
+    font-size: 11px;
+  }
+
+  .nimbus-ai-panel__summary {
+    max-height: 112px;
+  }
+}
+
 /* Excalidraw dark theme overrides */
 .excalidraw {
-  --color-primary: #c9a84c !important;
+  --color-primary: #ff7a00 !important;
   --color-primary-darker: #a6832f !important;
   --color-primary-darkest: #7d6423 !important;
   --color-primary-light: #e8d5a0 !important;
   --island-bg-color: #161619 !important;
   --default-bg-color: #0a0a0a !important;
   --text-primary-color: #f7f8f8 !important;
-  --icon-fill-color: #c9a84c !important;
+  --icon-fill-color: #ff7a00 !important;
   --button-hover-bg: #1c1c20 !important;
 }
 
@@ -146,7 +392,7 @@ body {
 .mermaid-preview .node circle,
 .mermaid-preview .node polygon {
   fill: #161619 !important;
-  stroke: #c9a84c !important;
+  stroke: #ff7a00 !important;
 }
 
 .mermaid-preview .edgePath .path {
